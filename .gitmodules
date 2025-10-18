@@ -1,0 +1,3 @@
+[submodule "ext/SystemThemeAwareToolTip"]
+	path = ext/SystemThemeAwareToolTip
+	url = https://github.com/nperovic/SystemThemeAwareToolTip
