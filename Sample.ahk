@@ -12,7 +12,7 @@
 ; GUI setup
 ;==================================================================================================
 
-#Include "Appearance.ahk" ; remove if you want the default AutoHotKey GUI
+#Include "Appearance.ahk" ; remove if you want the default AutoHotkey GUI
 
 ;==================================================================================================
 ; generic hotkeys to cycle through windows of any application
@@ -28,8 +28,10 @@
 ; hotkeys to launch applications and cycle through their windows when invoked multiple times
 ;==================================================================================================
 
-#!#::StartOrCycleAppWindows("Calc", "", "calc.exe", "Calculator") ; Windows Key + Alt + #
-#!Enter::StartOrCycleAppWindows("Terminal", "", "wt.exe", AHK_EXE("WindowsTerminal.exe"))
+#!#::StartOrCycleAppWindows("Calc", "", "calc.exe", "", "Calculator") ; Windows Key + Alt + #
+
+#!Enter::StartOrCycleAppWindows("Terminal", "", "wt.exe", "", AHK_EXE("WindowsTerminal.exe"))
+^#!Enter::LaunchApp("Terminal", "", "wt.exe", "-w new", AHK_EXE("WindowsTerminal.exe")) ; force new window
 
 #!e::StartOrCycleAppWindows("Windows Explorer", "", "explorer.exe")
 #!f::StartOrCycleAppWindows("Firefox", PathInProgramFilesDir("Mozilla Firefox"), "firefox.exe")

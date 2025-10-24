@@ -5,23 +5,23 @@
 #Include <ErrMsg>
 #Include <Paths>
 
-LaunchApp(title, directory, file, waitCriteria:="")
+LaunchApp(title, directory, file, params:="", waitCriteria:="")
 {
   AutoToolTip("Starting " title " ...")
 
   try
   {
-    return LaunchProcess(directory, file, waitCriteria)
+    return LaunchProcess(directory, file, params, waitCriteria)
   }
   catch as e
   {
     path := PathAppend(directory, file)
-    ErrMsg(Format("Failed to start '{}'.`n`nPath:`t{}", title, path), e)
+    ErrMsg(Format("Failed to start '{}'.`n`nPath:`t{}`nParams:`t{}", title, path, params), e)
     return 0
   }
 }
 
-LaunchProcess(directory, file, waitCriteria:="")
+LaunchProcess(directory, file, params:="", waitCriteria:="")
 {
   if waitCriteria = ""
   {
@@ -29,9 +29,14 @@ LaunchProcess(directory, file, waitCriteria:="")
   }
 
   workingDir := (directory = "") ? PathGetUserProfileDir() : directory
-  path := PathAppend(directory, file)
 
-  Run(path, workingDir, "", &pid)
+  cmd := PathAppend(directory, file)
+  if params != ""
+  {
+    cmd .= " " . params
+  }
+
+  Run(cmd, workingDir, "", &pid)
   WinWait(waitCriteria)
   WinActivate() ; activate last found window
 

@@ -182,7 +182,7 @@ CycleAppWindows(title, file, criteria:="", direction:="next", switchableWindowPr
   CycleWindowGroup(title, matchingIds, direction)
 }
 
-StartOrCycleAppWindows(title, folder, file, criteria:="", direction:="next", switchableWindowPredicateFunction:=IsSwitchableWindow)
+StartOrCycleAppWindows(title, folder, file, params:="", criteria:="", direction:="next", switchableWindowPredicateFunction:=IsSwitchableWindow)
 {
   if criteria = ""
   {
@@ -192,7 +192,7 @@ StartOrCycleAppWindows(title, folder, file, criteria:="", direction:="next", swi
   matchingIds := WindowGetMatchingIds(criteria, switchableWindowPredicateFunction)
   if matchingIds.Length = 0
   {
-    LaunchApp(title, folder, file, criteria)
+    LaunchApp(title, folder, file, params, criteria)
   }
   else
   {
