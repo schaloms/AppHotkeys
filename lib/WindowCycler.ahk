@@ -139,10 +139,10 @@ IsSwitchableWindow(windowId)
 
 CycleWindowGroup(groupIndicator, windowIds, direction:="next")
 {
-  activeWindowID := WinGetID("A") ; determine the currently active window
+  activeWindowId := WindowGetActiveId() ; determine the currently active window
   for id in windowIds
   {
-    if activeWindowID = id ; check if the active window is part of the window group
+    if activeWindowId = id ; check if the active window is part of the window group
     {
       WindowSwitchActive(groupIndicator, windowIds, direction) ; activate another window in group
       return
@@ -154,7 +154,7 @@ CycleWindowGroup(groupIndicator, windowIds, direction:="next")
 
 CycleActiveWindowGroup(direction:="next", switchableWindowPredicateFunction:=IsSwitchableWindow, multiInstancePredicateFunction:=IsMultiInstanceApp)
 {
-  activeWindowId := WinGetID("A") ; determine the currently active window
+  activeWindowId := WindowGetActiveId() ; determine the currently active window
   if activeWindowId > 0
   {
     exe := WinGetProcessName(activeWindowId)

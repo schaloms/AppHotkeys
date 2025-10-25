@@ -1,5 +1,19 @@
 #Requires AutoHotkey v2.0
 
+WindowGetActiveId()
+{
+  ; auto-retry in (rare) case WinGetID doesn't find an active window
+  Loop 5
+  {
+    try
+    {
+      return WinGetID("A")
+    }
+    Sleep 10
+  }
+  throw Error("Failed to determine active window.")
+}
+
 WindowGetMatchingIds(criteria, windowPredicateFunction?)
 {
   candidateIds := WinGetList(criteria)

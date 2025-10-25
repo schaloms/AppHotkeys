@@ -15,7 +15,7 @@ WindowSwitchActive(groupIndicator, windowIds, direction:="next")
   ; check if we're still switching windows in the same group as before
   if WindowIdsEqualIgnoreOrder(windowIds, lastWindowIds)
   {
-    ; ignore current Z-order, work with the windows in order the previous call
+    ; ignore current Z-order, work with the windows in order of the previous call
     windowIds := lastWindowIds
   }
   else
@@ -77,6 +77,24 @@ WindowSwitchActive(groupIndicator, windowIds, direction:="next")
   }
 
   lastActivatedId := idToActivate
+
+  if lastActivatedId > 0
+  {
+    ; when the mouse is not already somewhere over the activated window,
+    ; we move it into the center of that window (if the area is visible)
+    MouseGetPos(,, &mouseWindowId)
+    if lastActivatedId != mouseWindowId
+    {
+      WinGetPos(&x, &y, &w, &h, lastActivatedId)
+      targetX := x + ( w // 2 )
+      targetY := y + ( h // 2 )
+
+      ; we cannot use AHK's MouseMove here as that method doesn't work
+      ; well with some multi-monitor configurations (i.e. the cursor
+      ; might become stuck at the edge of the screen)
+      DllCall("SetCursorPos", "int", targetX, "int", targetY)
+    }
+  }
 
   if msg != ""
   {
